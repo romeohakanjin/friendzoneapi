@@ -3,23 +3,24 @@
     if(isset($_GET['action']) and isset($_GET['values'])){
         /* Connexion d'un membre */
         if($_GET['action'] == 'connexion'){
-            $req = $bdd->prepare('SELECT * FROM users WHERE mail = :mail AND mdp = :mdp');
+            $req = $bdd->prepare('SELECT * FROM users WHERE pseudo = :pseudo AND mdp = :mdp');
 
             $req->execute(array(
-                'mail' => $_GET['values']['mail'],
+                'pseudo' => $_GET['values']['pseudo'],
                 'mdp' =>  md5($_GET['values']['mdp'])));
 
             $req_fetch = $req->fetch();
 
             if ($req_fetch){
+                echo $req_fetch['id'];
                 echo "ok";
 
             }
+            else{
+                echo "no_match";
+            }
 
             $req->closeCursor();
-
-            return null;
-
         }
         /* Ajouter un membre */
         else if($_GET['action'] == 'inscription'){
@@ -128,7 +129,7 @@
         while($data = $req->fetch()){
            $arr[$i] = array(
             'id'  => $data["id"],
-            'nom' =>$data["nom"],
+            'nom_user' =>$data["nom"],
             'pseudo' =>$data["pseudo"],
             'tel' =>$data["tel"]
           );
