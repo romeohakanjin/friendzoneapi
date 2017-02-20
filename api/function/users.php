@@ -117,6 +117,64 @@
             $req->execute();
             $req->closeCursor();
         }
+        
+        else if($_GET['action'] == 'non_friend'){
+
+            foreach ( $_GET['values']['array'] as $i => $res) {
+                $_GET['values']['array'][$i] = intval($res);
+            }
+
+            $req = $bdd->prepare('SELECT DISTINCT users.pseudo,users.id, users.tel FROM users ,amis WHERE users.tel IN ('.implode(",",$_GET['values']['array']).') and users.id NOT IN (SELECT amis.id_user  FROM amis WHERE amis.id_user = :id_user OR amis.id_ami = :id_user) and users.id NOT IN (SELECT amis.id_ami FROM amis WHERE amis.id_user = :id_user OR amis.id_ami = :id_user) and users.id != :id_user');
+            $req->bindParam(':id_user', $_GET['values']['id_user'], PDO::PARAM_INT);
+            $req->execute();
+
+            $a = $req->fetchAll();
+
+            $i=0;
+            $result = array();
+            foreach ($a as $data ){
+                $arr[$i] = array(
+                    'id_user'  => $data["id"],
+                    'nom_user' =>$data["pseudo"],
+                    'tel' => $data["tel"]
+                );
+                $i++;
+            }
+
+            $req->closeCursor();
+            echo $json_data = json_encode(array('result'=>$arr));
+            return $json_data;
+        }
+
+        else if($_GET['action'] == 'add_friend'){
+
+            echo  $_GET['values']['id_amis'];
+            $id_first =  $_GET['values']['id_amis'];
+
+            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (4,:id_first)');
+            $req->bindParam(':id_first', $id_first, PDO::PARAM_INT);
+            $req->execute();
+
+            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (:id_first,4)');
+            $req->bindParam(':id_first', $id_first, PDO::PARAM_INT);
+            $bool = $req->execute();
+            var_dump($bool);
+
+
+            if ($bool){
+
+                echo'ok';
+
+            }else{
+
+                echo 'error';
+            }
+
+            $req->closeCursor();
+        }
+
+
+
     }
 
     /*Afficher la liste des utilisateurs*/
