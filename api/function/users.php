@@ -66,9 +66,9 @@
         /* Afficher la liste des amis */
         else if($_GET['action'] == 'amis_liste'){
             $req = $bdd->prepare('SELECT a.id_user, a.id_ami, u.nom, u.prenom, u.pseudo 
-                FROM amis AS a, users AS u 
-                WHERE a.id_user = u.id 
-                AND a.id_user = :id_user');
+                FROM amis a 
+                LEFT JOIN users u ON u.id = a.id_ami 
+                WHERE a.id_user = :id_user');
 
             $req->bindParam(':id_user', $_GET['values']['id'], PDO::PARAM_INT);
             $req->execute();
@@ -117,7 +117,7 @@
             $req->execute();
             $req->closeCursor();
         }
-        
+
         else if($_GET['action'] == 'non_friend'){
 
             foreach ( $_GET['values']['array'] as $i => $res) {
@@ -200,5 +200,51 @@
 
         return $json_data;    
     }
+
+        /* Insère la pos actuelle de la pers */ 
+    if($_GET['action'] == 'Insert_Self_Pos'){
+        $req = $bdd->prepare('UPDATE users SET pos_x = :pos_x, pos_y = :pos_y, pos_z = :pos_z WHERE users.id = :id');
+
+        $req->bindParam(':pos_x', $_GET['values']['pos_x'], PDO::PARAM_STR);
+        $req->bindParam(':pos_y', $_GET['values']['pos_y'], PDO::PARAM_STR);
+        $req->bindParam(':pos_z', $_GET['values']['pos_z'], PDO::PARAM_INT);
+        $req->bindParam(':id', $_GET['values']['id'], PDO::PARAM_STR);
+
+        $bool = $req->execute();
+        var_dump($bool);
+
+        if ($bool){
+            echo'ok';
+        }else{
+            echo 'error';
+        }
+
+        $req->closeCursor();
+    }
+    
+    /* Afficher la pos des amis */
+    if($_GET['action'] == 'Show_Friends_Pos'){
+        $req = $bdd->prepare('SELECT u.pos_x, u.pos_y, u.pos_z, u.nom, u.prenom 
+                              FROM users AS u   
+                              LEFT JOIN amis AS a ON a.id_ami = u.id
+                              WHERE a.id_user = :id
+                              AND a.partage_position = 1');
+
+        $req->bindParam(':id', $_GET['values']['id'], PDO::PARAM_STR);
+
+        $req_fetch = $req->fetch();
+
+        if ($req_fetch){
+            echo $req_fetch['id'];
+            echo "ok";
+        }
+        else{
+            echo "no_match";
+        }
+
+        $req->closeCursor();
+    }
+    
+?>
 
 ?>
