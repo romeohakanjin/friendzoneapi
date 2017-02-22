@@ -2,10 +2,10 @@
 
     try
     {
-        /*$user = "sql8148080";
-        $pass = "Hw6WwvjJ2L";
-        $host = "sql8.freemysqlhosting.net";
-        $dbname = "sql8148080";*/
+        /*$user = "id876389_admin";
+        $pass = "adminfriendzone";
+        $host = "server11.000webhost.com";
+        $dbname = "id876389_friendzone";*/
         $user = "root";
         $pass = "";
         $host = "localhost";

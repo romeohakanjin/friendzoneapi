@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 17 Février 2017 à 13:35
--- Version du serveur :  5.7.14
--- Version de PHP :  5.6.25
+-- Généré le :  Mer 22 Février 2017 à 11:21
+-- Version du serveur :  10.1.16-MariaDB
+-- Version de PHP :  7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,15 +38,11 @@ CREATE TABLE `amis` (
 --
 
 INSERT INTO `amis` (`id`, `partage_position`, `id_user`, `id_ami`) VALUES
-(2, 0, 1, 4),
 (3, 0, 2, 1),
 (4, 0, 2, 3),
 (5, 0, 3, 5),
 (6, 0, 3, 2),
-(7, 1, 4, 1),
-(8, 0, 4, 5),
-(9, 0, 4, 2),
-(10, 0, 5, 3);
+(10, 1, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -110,27 +106,25 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `prenom` varchar(255) DEFAULT NULL,
-  `tel` int(255) NOT NULL,
+  `tel` int(10) UNSIGNED ZEROFILL NOT NULL,
   `pseudo` varchar(255) NOT NULL,
   `mdp` varchar(255) NOT NULL,
   `mail` varchar(255) NOT NULL,
-  `pos_x` int(255) DEFAULT NULL,
-  `pos_y` int(255) DEFAULT NULL,
-  `pos_z` int(255) DEFAULT NULL,
-  `longi` int(255) DEFAULT NULL,
-  `lat` int(255) DEFAULT NULL
+  `longi` float DEFAULT NULL,
+  `lat` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `nom`, `prenom`, `tel`, `pseudo`, `mdp`, `mail`, `pos_x`, `pos_y`, `pos_z`, `longi`, `lat`) VALUES
-(1, 'Amy', 'Pierce', 7, 'Amy Pierce', '3cc992572636f5216ac8eeb26ed536eb', 'apierce0@simplemachines.org', 3406, 805, 2, 63, 61),
-(2, 'Earl', 'Weaver', 86, 'Earl Weaver', '44a03e7f33dd14cb39368637d2e10992', 'eweaver1@theguardian.com', 4, 30, 200, 116, 40),
-(3, 'Jose', 'Austin', 86, 'Jose Austin', 'ac89cc6a4ff4f90b99dcb58a882b338d', 'jaustin2@usnews.com', 53, 7, 6, 116, 24),
-(4, 'Tina', 'Romero', 86, 'vertigo', 'ef357e2726eaa00a568e40faf544ddda', 'tromero3@mozilla.com', 5, 537, 471, 106, 28),
-(5, 'Jason', 'Hernandez', 380, 'admina', '098f6bcd4621d373cade4e832627b4f6', 'admin@admin.fr', 33, 5, 41687, 30, 50);
+INSERT INTO `users` (`id`, `nom`, `prenom`, `tel`, `pseudo`, `mdp`, `mail`, `longi`, `lat`) VALUES
+(1, 'Amy', 'Pierce', 0000000007, 'Amy Pierce', '3cc992572636f5216ac8eeb26ed536eb', 'apierce0@simplemachines.org', 63, 61),
+(2, 'Earl', 'Weaver', 0000000086, 'Earl Weaver', '44a03e7f33dd14cb39368637d2e10992', 'eweaver1@theguardian.com', 116, 40),
+(3, 'Jose', 'Austin', 0000000086, 'Jose Austin', 'ac89cc6a4ff4f90b99dcb58a882b338d', 'jaustin2@usnews.com', 116, 24),
+(4, 'Tina', 'Romero', 0000000395, 'vertigo', '098f6bcd4621d373cade4e832627b4f6', 'tromero3@mozilla.com', -0.127758, 51.5074),
+(5, 'Jason', 'Hernandez', 0000000380, 'admina', '098f6bcd4621d373cade4e832627b4f6', 'admin@admin.fr', 5.36978, 43.2965),
+(29, 'pasdechamp', 'pasdechamp', 0512365989, 'jkioj', '1a02c8481916a0bbce30eeaee362e7da', 'ijo@jj.fr', NULL, NULL);
 
 --
 -- Index pour les tables exportées
@@ -187,7 +181,7 @@ ALTER TABLE `lieu`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- Contraintes pour les tables exportées
 --

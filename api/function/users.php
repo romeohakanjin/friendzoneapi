@@ -173,6 +173,80 @@
             $req->closeCursor();
         }
 
+        /* Avoir la position de l'user co */
+        else if($_GET['action'] == 'user_position'){
+            $req = $bdd->prepare('SELECT id, longi, lat 
+                FROM users 
+                WHERE id = :id_user');
+
+            $req->bindParam(':id_user', $_GET['values']['id'], PDO::PARAM_INT);
+            $req->execute();
+            $a = $req->fetchAll();
+            
+            $i=0;
+            $result = array();
+            foreach ($a as $data ){
+               $arr[$i] = array(
+                'id_user'  => $data["id"],
+                'long_user' =>$data["longi"],
+                'lat_user' =>$data["lat"]
+              );
+              $i++;
+            }
+
+            $req->closeCursor(); 
+
+            //Retour en json
+            echo $json_data = json_encode(array('result'=>$arr));
+            return $json_data; 
+        }
+        /*Afficher la liste d'un' utilisateur*/
+        elseif($_GET['action'] == 'user_profil'){
+            $req = $bdd->prepare("SELECT * FROM users WHERE id = :id_user");
+            $req->bindParam(':id_user', $_GET['values']['id'], PDO::PARAM_INT);
+            $req->setFetchMode(PDO::FETCH_ASSOC);
+            $req->execute();
+
+            $i=0;
+            $result = array();
+            while($data = $req->fetch()){
+               $arr[$i] = array(
+                'id'  => $data["id"],
+                'nom_user' =>$data["nom"],
+                'pseudo' =>$data["pseudo"],
+                'tel' =>$data["tel"],
+                'mail' =>$data["mail"],
+                'prenom' =>$data["prenom"]
+              );
+              $i++;
+            }
+            $req->closeCursor();
+
+            //Retour en json
+            echo $json_data = json_encode(array('result'=>$arr)); 
+
+            return $json_data;    
+        }
+        else if($_GET['action'] == 'update_profil'){
+            $req = $bdd->prepare('UPDATE users
+                SET nom = :nom, 
+                prenom = :prenom, 
+                tel = :tel, 
+                pseudo = :pseudo, 
+                mail = :mail
+                WHERE id = :id');
+            
+            $req->bindParam(':nom', $_GET['values']['nom'], PDO::PARAM_STR);
+            $req->bindParam(':prenom', $_GET['values']['prenom'], PDO::PARAM_STR);
+            $req->bindParam(':tel', $_GET['values']['tel'], PDO::PARAM_INT);
+            $req->bindParam(':pseudo', $_GET['values']['pseudo'], PDO::PARAM_STR);
+            $req->bindParam(':mail', $_GET['values']['mail'], PDO::PARAM_STR);
+            $req->bindParam(':id', $_GET['values']['id'], PDO::PARAM_STR);
+
+            $req->execute();
+            $req->closeCursor();
+
+        }
 
 
     }
