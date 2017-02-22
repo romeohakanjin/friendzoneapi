@@ -9,16 +9,30 @@
                 'pseudo' => $_GET['values']['pseudo'],
                 'mdp' =>  md5($_GET['values']['mdp'])));
 
-            $req_fetch = $req->fetch();
+            $a = $req->fetchAll();
+            
+            $i=0;
+            $result = array();
+            foreach ($a as $data ){
+               $arr[$i] = array(
+                'id'  => $data["id"]
+              );
+              $i++;
+            }
 
-            if ($req_fetch){
-                echo $req_fetch['id'];
+            //Retour en json
+            echo $json_data = json_encode(array('result'=>$arr));
+             
+
+            if ($a){
                 echo "ok";
 
             }
             else{
                 echo "no_match";
             }
+
+            return $json_data;
 
             $req->closeCursor();
         }
@@ -34,7 +48,7 @@
                 return null;
             }
 
-            $req = $bdd->prepare('INSERT INTO users(nom, prenom, tel, pseudo, mdp, mail, pos_x, pos_y, pos_z, longi, lat) VALUES (:nom, :prenom, :tel, :pseudo, :mdp, :mail, :pos_x , :pos_y , :pos_z, :longi, :lat)');
+            $req = $bdd->prepare('INSERT INTO users(nom, prenom, tel, pseudo, mdp, mail, longi, lat) VALUES (:nom, :prenom, :tel, :pseudo, :mdp, :mail, :longi, :lat)');
 
             $req->bindParam(':nom', $_GET['values']['nom'], PDO::PARAM_STR);
             $req->bindParam(':prenom', $_GET['values']['prenom'], PDO::PARAM_STR);
@@ -42,15 +56,10 @@
             $req->bindParam(':pseudo', $_GET['values']['pseudo'], PDO::PARAM_STR);
             $req->bindParam(':mdp', md5($_GET['values']['mdp']), PDO::PARAM_STR);
             $req->bindParam(':mail', $_GET['values']['mail'], PDO::PARAM_STR);
-            $req->bindParam(':pos_x', $_GET['values']['pos_x'], PDO::PARAM_INT);
-            $req->bindParam(':pos_y', $_GET['values']['pos_y'], PDO::PARAM_INT);
-            $req->bindParam(':pos_z', $_GET['values']['pos_z'], PDO::PARAM_INT);
             $req->bindParam(':longi', $_GET['values']['longi'], PDO::PARAM_INT);
             $req->bindParam(':lat', $_GET['values']['lat'], PDO::PARAM_INT);
 
             $bool = $req->execute();
-            var_dump($bool);
-
 
             if ($bool){
 
@@ -148,15 +157,17 @@
 
         else if($_GET['action'] == 'add_friend'){
 
-            echo  $_GET['values']['id_amis'];
+            
             $id_first =  $_GET['values']['id_amis'];
-
-            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (4,:id_first)');
+            $id_co =  $_GET['values']['id_co'];
+            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (:id_co,:id_first)');
             $req->bindParam(':id_first', $id_first, PDO::PARAM_INT);
+            $req->bindParam(':id_co', $id_co, PDO::PARAM_INT);
             $req->execute();
 
-            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (:id_first,4)');
+            $req = $bdd->prepare('INSERT INTO amis(id_user,id_ami) VALUES (:id_first,:id_co)');
             $req->bindParam(':id_first', $id_first, PDO::PARAM_INT);
+             $req->bindParam(':id_co', $id_co, PDO::PARAM_INT);
             $bool = $req->execute();
             var_dump($bool);
 
