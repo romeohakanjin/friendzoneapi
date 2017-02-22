@@ -34,7 +34,7 @@
                 return null;
             }
 
-            $req = $bdd->prepare('INSERT INTO users(nom, prenom, tel, pseudo, mdp, mail, pos_x, pos_y, pos_z, longi, lat) VALUES (:nom, :prenom, :tel, :pseudo, :mdp, :mail, :pos_x , :pos_y , :pos_z, :longi, :lat)');
+            $req = $bdd->prepare('INSERT INTO users(nom, prenom, tel, pseudo, mdp, mail, longi, lat) VALUES (:nom, :prenom, :tel, :pseudo, :mdp, :mail, :longi, :lat)');
 
             $req->bindParam(':nom', $_GET['values']['nom'], PDO::PARAM_STR);
             $req->bindParam(':prenom', $_GET['values']['prenom'], PDO::PARAM_STR);
@@ -42,9 +42,6 @@
             $req->bindParam(':pseudo', $_GET['values']['pseudo'], PDO::PARAM_STR);
             $req->bindParam(':mdp', md5($_GET['values']['mdp']), PDO::PARAM_STR);
             $req->bindParam(':mail', $_GET['values']['mail'], PDO::PARAM_STR);
-            $req->bindParam(':pos_x', $_GET['values']['pos_x'], PDO::PARAM_INT);
-            $req->bindParam(':pos_y', $_GET['values']['pos_y'], PDO::PARAM_INT);
-            $req->bindParam(':pos_z', $_GET['values']['pos_z'], PDO::PARAM_INT);
             $req->bindParam(':longi', $_GET['values']['longi'], PDO::PARAM_INT);
             $req->bindParam(':lat', $_GET['values']['lat'], PDO::PARAM_INT);
 

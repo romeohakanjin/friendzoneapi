@@ -47,20 +47,20 @@ INSERT INTO `amis` (`id`, `partage_position`, `id_user`, `id_ami`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `appartient`
+-- Structure de la table `partagepartagepartage`
 --
 
-CREATE TABLE `appartient` (
+CREATE TABLE `partage` (
   `id` int(11) NOT NULL,
   `id_lieu` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `appartient`
+-- Contenu de la table `partagepartage`
 --
 
-INSERT INTO `appartient` (`id`, `id_lieu`, `id_user`) VALUES
+INSERT INTO `partage` (`id`, `id_lieu`, `id_user`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3),
@@ -139,9 +139,9 @@ ALTER TABLE `amis`
   ADD KEY `FK02` (`id_ami`);
 
 --
--- Index pour la table `appartient`
+-- Index pour la table `partage`
 --
-ALTER TABLE `appartient`
+ALTER TABLE `partagepartage`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_lieu` (`id_lieu`),
   ADD KEY `fk_user` (`id_user`);
@@ -168,9 +168,9 @@ ALTER TABLE `users`
 ALTER TABLE `amis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT pour la table `appartient`
+-- AUTO_INCREMENT pour la table `partage`
 --
-ALTER TABLE `appartient`
+ALTER TABLE `partage`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `lieu`
@@ -194,11 +194,11 @@ ALTER TABLE `amis`
   ADD CONSTRAINT `FK02` FOREIGN KEY (`id_ami`) REFERENCES `users` (`id`);
 
 --
--- Contraintes pour la table `appartient`
+-- Contraintes pour la table `partage`
 --
-ALTER TABLE `appartient`
-  ADD CONSTRAINT `appartient_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `appartient_ibfk_2` FOREIGN KEY (`id_lieu`) REFERENCES `lieu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `partage`
+  ADD CONSTRAINT `partage_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `partage_ibfk_2` FOREIGN KEY (`id_lieu`) REFERENCES `lieu` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
