@@ -184,11 +184,16 @@
             $req->closeCursor();
         }
 
-        /* Avoir la position de l'user co */
+        /* Avoir la position des admis d'un user */
         else if($_GET['action'] == 'user_position'){
-            $req = $bdd->prepare('SELECT id, longi, lat 
+            /*$req = $bdd->prepare('SELECT id, longi, lat 
                 FROM users 
-                WHERE id = :id_user');
+                WHERE id = :id_user');*/
+            $req = $bdd->prepare('SELECT a.id_user, a.id_ami, u.nom, u.prenom, u.pseudo, u.longi, u.lat 
+                FROM amis a 
+                LEFT JOIN users u ON u.id = a.id_ami 
+                WHERE a.id_user = :id_user
+                AND a.partage_position = 1 ');
 
             $req->bindParam(':id_user', $_GET['values']['id'], PDO::PARAM_INT);
             $req->execute();
@@ -198,9 +203,13 @@
             $result = array();
             foreach ($a as $data ){
                $arr[$i] = array(
-                'id_user'  => $data["id"],
-                'long_user' =>$data["longi"],
-                'lat_user' =>$data["lat"]
+                'id_user'  => $data["id_user"],
+                'id_ami'  => $data["id_ami"],
+                'nom_ami'  => $data["nom"],
+                'prenom_ami'  => $data["prenom"],
+                'pseudo_ami'  => $data["pseudo"],
+                'long_ami' =>$data["longi"],
+                'lat_ami' =>$data["lat"]
               );
               $i++;
             }
