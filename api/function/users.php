@@ -263,7 +263,15 @@
             $req->bindParam(':mail', $_GET['values']['mail'], PDO::PARAM_STR);
             $req->bindParam(':id', $_GET['values']['id'], PDO::PARAM_STR);
 
-            $req->execute();
+            $bool = $req->execute();
+            if ($bool){
+
+                echo'success_update';
+
+            }else{
+
+                echo 'error_update';
+            }
             $req->closeCursor();
 
         }
