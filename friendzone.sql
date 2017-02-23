@@ -47,7 +47,7 @@ INSERT INTO `amis` (`id`, `partage_position`, `id_user`, `id_ami`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `partagepartagepartage`
+-- Structure de la table `partage`
 --
 
 CREATE TABLE `partage` (
@@ -57,7 +57,7 @@ CREATE TABLE `partage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `partagepartage`
+-- Contenu de la table `partage`
 --
 
 INSERT INTO `partage` (`id`, `id_lieu`, `id_user`) VALUES
@@ -141,7 +141,7 @@ ALTER TABLE `amis`
 --
 -- Index pour la table `partage`
 --
-ALTER TABLE `partagepartage`
+ALTER TABLE `partage`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_lieu` (`id_lieu`),
   ADD KEY `fk_user` (`id_user`);
