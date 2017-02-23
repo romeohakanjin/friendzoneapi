@@ -286,6 +286,24 @@
         return $json_data;    
     }
 
+    /* Update partage position */ 
+    if($_GET['action'] == 'Update_Share_Pos'){
+        $req = $bdd->prepare('CALL Update_Share_Pos(:id)');
+
+        $req->bindParam(':id', $_GET['values']['id'], PDO::PARAM_INT);
+
+        $bool = $req->execute();
+        var_dump($bool);
+
+        if ($bool){
+            echo'ok';
+        }else{
+            echo 'error';
+        }
+
+        $req->closeCursor();
+    }   
+
         /* Insère la pos actuelle de la pers */ 
     if($_GET['action'] == 'Insert_Self_Pos'){
         $req = $bdd->prepare('UPDATE users SET pos_x = :pos_x, pos_y = :pos_y, pos_z = :pos_z WHERE users.id = :id');
