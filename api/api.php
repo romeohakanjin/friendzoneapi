@@ -2,14 +2,14 @@
 
     try
     {
-        /*$user = "id876389_admin";
-        $pass = "adminfriendzone";
-        $host = "server11.000webhost.com";
-        $dbname = "id876389_friendzone";*/
-        $user = "root";
+        $user = "u548252978_admin";
+        $pass = "Fs|u;CeiD9v&:j";
+        $host = "mysql.hostinger.fr";
+        $dbname = "u548252978_frend";
+        /*$user = "root";
         $pass = "";
         $host = "localhost";
-        $dbname = "friendzone";
+        $dbname = "friendzone";*/
 
         $bdd = new PDO('mysql:host='.$host.';dbname='.$dbname.'', $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
 
