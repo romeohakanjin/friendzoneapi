@@ -158,15 +158,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nom`, `prenom`, `tel`, `pseudo`, `mdp`, `mail`, `longi`, `lat`) VALUES
-(1, 'Pierce', 'Amy', 0657453648, 'Amy_Pierce', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'apierce0@simplemachines.org', 63, 61),
-(2, 'Weaver', 'Earl', 0657453699, 'Earl-Weaver', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'eweaver1@theguardian.com', 116, 40),
-(3, 'Jose', 'Austin', 0757453648, 'JoseA', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'jaustin2@usnews.com', 116, 24),
-(4, 'Romero', 'Tina', 0657000648, 'tinaR', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'tromero3@mozilla.com', -0.127758, 51.5074),
-(5, 'AdminNom', 'AdminPrenom', 0787453648, 'admin', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'admin@admin.fr', 5.36978, 43.2965),
-(6, 'Burton', 'Paul', 0512365989, 'paul', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'paul@laposte.fr', 4.25, 40.235),
-(7, 'Toupe', 'Quentin', 0602677213, 'quentin45', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'QuentinT45@free.fr', 2.69654, 65.32),
-(8, 'Zoro', 'Daniel', 0602677216, 'ZoroDaniel', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'zoro@test.fr', 1.26874, 23.1564),
-(9, 'Zokodo', 'Celine', 0602677259, 'zokodoC', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'zokodo@cel.fr', -4.65, 12.2541);
+(1, 'Pierce', 'Amy', 0657453648, 'Amy_Pierce', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'apierce0@simplemachines.org', 63, 61),
+(2, 'Weaver', 'Earl', 0657453699, 'Earl-Weaver', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'eweaver1@theguardian.com', 116, 40),
+(3, 'Jose', 'Austin', 0757453648, 'JoseA', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'jaustin2@usnews.com', 116, 24),
+(4, 'Romero', 'Tina', 0657000648, 'tinaR', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'tromero3@mozilla.com', -0.127758, 51.5074),
+(5, 'AdminNom', 'AdminPrenom', 0787453648, 'admin', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'admin@admin.fr', 5.36978, 43.2965),
+(6, 'Burton', 'Paul', 0512365989, 'paul', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'paul@laposte.fr', 4.25, 40.235),
+(7, 'Toupe', 'Quentin', 0602677213, 'quentin45', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'QuentinT45@free.fr', 2.69654, 65.32),
+(8, 'Zoro', 'Daniel', 0602677216, 'ZoroDaniel', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'zoro@test.fr', 1.26874, 23.1564),
+(9, 'Zokodo', 'Celine', 0602677259, 'zokodoC', 'b9ece18c950afbfa6b0fdbfa4ff731d3', 'zokodo@cel.fr', -4.65, 12.2541);
 
 --
 -- Index pour les tables exportées
