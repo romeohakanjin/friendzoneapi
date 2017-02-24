@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 24 Février 2017 à 14:24
--- Version du serveur :  10.1.16-MariaDB
--- Version de PHP :  7.0.9
+-- Généré le :  Ven 24 Février 2017 à 14:11
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,31 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `friendzone`
 --
+
+DELIMITER $$
+--
+-- Procédures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Share_Pos` (IN `idUser` INT(255))  BEGIN    
+	DECLARE Partage_Pos INT(10);
+	SELECT a.partage_position INTO Partage_Pos
+    FROM amis AS a
+    INNER JOIN users AS u ON u.id = a.id_user
+    WHERE a.id_user = idUser
+    LIMIT 1;
+    
+    IF (Partage_Pos = 0) THEN
+    	UPDATE amis
+        SET partage_position = 1
+        WHERE id_user = idUser;
+    ELSE
+    	UPDATE amis
+        SET partage_position = 0
+        WHERE id_user = idUser;
+	END IF;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -53,8 +78,8 @@ INSERT INTO `amis` (`id`, `partage_position`, `id_user`, `id_ami`) VALUES
 (20, 1, 1, 4),
 (25, 1, 4, 2),
 (26, 0, 2, 4),
-(37, 0, 31, 5),
-(38, 1, 5, 31),
+(37, 0, 8, 5),
+(38, 1, 5, 8),
 (39, 0, 5, 2),
 (40, 0, 2, 5);
 
@@ -133,15 +158,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nom`, `prenom`, `tel`, `pseudo`, `mdp`, `mail`, `longi`, `lat`) VALUES
-(1, 'Amy', 'Pierce', 0000000007, 'Amy Pierce', '3cc992572636f5216ac8eeb26ed536eb', 'apierce0@simplemachines.org', 63, 61),
-(2, 'Earl', 'Weaver', 0000000086, 'Earl Weaver', '44a03e7f33dd14cb39368637d2e10992', 'eweaver1@theguardian.com', 116, 40),
-(3, 'Jose', 'Austin', 0000000086, 'Jose Austin', 'ac89cc6a4ff4f90b99dcb58a882b338d', 'jaustin2@usnews.com', 116, 24),
-(4, 'Tina', 'Romero', 0000000395, 'vertigo', '098f6bcd4621d373cade4e832627b4f6', 'tromero3@mozilla.com', -0.127758, 51.5074),
-(5, 'Jason', 'HernandezEE', 0000000380, 'admina', '098f6bcd4621d373cade4e832627b4f6', 'admin@admin.fr', 5.36978, 43.2965),
-(29, 'pasdechamp', 'pasdechamp', 0512365989, 'jkioj', '1a02c8481916a0bbce30eeaee362e7da', 'ijo@jj.fr', 4.25, 40.235),
-(30, 'fds', 'fdsfsd', 0602677213, 'zalondaz', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'zgir@gfd.fr', 2.69654, 65.32),
-(31, 'pasdechamp', 'pasdechamp', 0602677216, 'zolondo', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'hakaj@zgzeg.fr', 1.26874, 23.1564),
-(32, 'pasdechamp', 'pasdechamp', 0602677259, 'zokodo', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'gfdg@fze.fr', -4.65, 12.2541);
+(1, 'Pierce', 'Amy', 0657453648, 'Amy_Pierce', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'apierce0@simplemachines.org', 63, 61),
+(2, 'Weaver', 'Earl', 0657453699, 'Earl-Weaver', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'eweaver1@theguardian.com', 116, 40),
+(3, 'Jose', 'Austin', 0757453648, 'JoseA', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'jaustin2@usnews.com', 116, 24),
+(4, 'Romero', 'Tina', 0657000648, 'tinaR', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'tromero3@mozilla.com', -0.127758, 51.5074),
+(5, 'AdminNom', 'AdminPrenom', 0787453648, 'admin', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'admin@admin.fr', 5.36978, 43.2965),
+(6, 'Burton', 'Paul', 0512365989, 'paul', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'paul@laposte.fr', 4.25, 40.235),
+(7, 'Toupe', 'Quentin', 0602677213, 'quentin45', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'QuentinT45@free.fr', 2.69654, 65.32),
+(8, 'Zoro', 'Daniel', 0602677216, 'ZoroDaniel', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'zoro@test.fr', 1.26874, 23.1564),
+(9, 'Zokodo', 'Celine', 0602677259, 'zokodoC', '2c9341ca4cf3d87b9e4eb905d6a3ec45', 'zokodo@cel.fr', -4.65, 12.2541);
 
 --
 -- Index pour les tables exportées
@@ -215,8 +240,8 @@ ALTER TABLE `amis`
 -- Contraintes pour la table `appartient`
 --
 ALTER TABLE `appartient`
-  ADD CONSTRAINT `appartient_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `appartient_ibfk_2` FOREIGN KEY (`id_lieu`) REFERENCES `lieu` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `appartient_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appartient_ibfk_2` FOREIGN KEY (`id_lieu`) REFERENCES `lieu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
